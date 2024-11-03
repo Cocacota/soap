@@ -8,7 +8,6 @@ import React from 'react';
 
 
 export default function Authenticated({ header, children }) {
-    // Verifica si auth y user están definidos para evitar errores
    
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 

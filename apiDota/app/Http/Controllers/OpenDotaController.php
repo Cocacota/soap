@@ -81,7 +81,7 @@ public function getHeroes()
 
 public function getHeroesMatches($heroe_id)
 {
-    $url = "https://api.opendota.com/api/players/{$heroe_id}/matches";
+    $url = "https://api.opendota.com/api/heroes/{$heroe_id}/matches";
     $response = Http::get($url);
 
     if ($response->successful()) {
@@ -90,7 +90,5 @@ public function getHeroesMatches($heroe_id)
         return response()->json(['error' => 'No se pudo obtener el historial de partidas'], 500);
     }
 }
-
-
 
 }

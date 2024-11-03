@@ -11,6 +11,7 @@ Route::get('/player/{player_id}/wl', [OpenDotaController::class, 'getPlayerWinLo
 Route::get('/player/{player_id}/heroes', [OpenDotaController::class, 'getPlayerHeroes']);
 Route::get('/player/{player_id}/matches', [OpenDotaController::class, 'getPlayerMatches']);
 Route::get('/heroes', [OpenDotaController::class, 'getHeroes'])->name('heroes.index');
+Route::get('/heroes/{id}', [OpenDotaController::class, 'showhero'])->name('heroes.show');
 
 
 Route::get('/matchs/{id}/match-history', [SoapClientController::class, 'getMatchHistory']);

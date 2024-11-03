@@ -2,12 +2,14 @@
 import React, { useState } from 'react';
 import Layout from '../../layout/layout';
 import { Head } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
+
 
 export default function Heroes({ heroes }) {
   const [heroess, setHeroes] = useState(heroes);
 
   return (
-    <Layout>
+    <div>
       <Head title="Heroes" />
       <h1>Heroes List</h1>
       <ul>
@@ -15,9 +17,12 @@ export default function Heroes({ heroes }) {
           <li key={heroe.id} className="p-6 text-gray-800 dark:text-gray-100 aos-flip-up bg-gray-100 mb-4 rounded-lg shadow-md">
             <h2 className="text-xl font-semibold">{heroe.localized_name}</h2>
             <p>{heroe.primary_attr}</p>
+          <Link href={`/heroes/${heroe.id}`}>
+            mas detelles
+          </Link>
           </li>
         ))}
       </ul>
-    </Layout>
+    </div>
   );
 }
