@@ -1,21 +1,43 @@
 <?php
-$options = [
-    'location' => 'http://localhost/soap/soap-server.php',
-    'uri' => 'http://localhost/soap/soap-server.php',
-];
+$url = "http://localhost/soap/soap-server.php";
 
-$client = new SoapClient(null, $options);
+// Crear el cuerpo de la solicitud SOAP en XML
+$xmlRequest = <<<XML
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+          xmlns:soap="http://localhost/soap">
+<soapenv:Header/>
+<soapenv:Body>
+<soap:getMatchHistory>
+ <soap:userId>{$userId}</soap:userId>
+</soap:getMatchHistory>
+</soapenv:Body>
+</soapenv:Envelope>
+XML;
 
-try {
-    // Solicitar historial de partidas del jugador con ID 12345
-    $playerID = 1;
-    $result = $client->getMatchHistory($playerID);
+// Inicializar cURL
+$ch = curl_init();
 
-    // Mostrar resultados
-    echo "Historial de partidas del jugador $playerID:\n";
-    foreach ($result as $match) {
-        echo "Match ID: " . $match['match_id'] . " | Héroe: " . $match['hero'] . " | Resultado: " . $match['result'] . "\n";
-    }
-} catch (SoapFault $e) {
-    echo "Error: " . $e->getMessage();
+// Configurar opciones de cURL para la solicitud
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    "Content-Type: text/xml",           // Tipo de contenido XML
+    "SOAPAction: http://localhost/soap#getMatchHistory" // Acción SOAP, debe coincidir con la definición en el WSDL
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $xmlRequest);
+
+// Ejecutar la solicitud y obtener la respuesta
+$response = curl_exec($ch);
+
+// Manejar errores de cURL
+if (curl_errno($ch)) {
+    $error_msg = curl_error($ch);
+    curl_close($ch);
+    return response()->json(['error' => $error_msg], 500);
 }
+
+curl_close($ch);
+
+// Devolver la respuesta como XML o procesarla como JSON
+return response($response, 200)->header('Content-Type', 'application/xml');
