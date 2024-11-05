@@ -22,11 +22,14 @@ class OpenDotaController extends Controller
         // Comprobar si la solicitud fue exitosa
         if ($response->successful()) {
             // Devolver los datos en formato JSON
-            return response()->json($response->json());
+            $json= response()->json($response->json());
         } else {
             // Si falla, devolver un error
-            return response()->json(['error' => 'No se pudo obtener la información del jugador'], 500);
+            $json= response()->json(['error' => 'No se pudo obtener la información del jugador'], 500);
         }
+        return Inertia::render('players/show', [
+            'player' => $json,
+        ]);
     }
     public function getPlayerHeroes($player_id)
 {
@@ -34,32 +37,29 @@ class OpenDotaController extends Controller
     $response = Http::get($url);
 
     if ($response->successful()) {
-        return response()->json($response->json());
+        $json= response()->json($response->json());
     } else {
-        return response()->json(['error' => 'No se pudo obtener los héroes del jugador'], 500);
+        $json =response()->json(['error' => 'No se pudo obtener los héroes del jugador'], 500);
     }
+    return Inertia::render('heroes/index', [
+        'players' => $json,
+    ]);
 }
-public function getPlayerWinLose($player_id)
-{
-    $url = "https://api.opendota.com/api/players/{$player_id}/wl";
-    $response = Http::get($url);
 
-    if ($response->successful()) {
-        return response()->json($response->json());
-    } else {
-        return response()->json(['error' => 'No se pudo obtener los héroes del jugador'], 500);
-    }
-}
 public function getPlayerMatches($player_id)
 {
     $url = "https://api.opendota.com/api/players/{$player_id}/matches";
     $response = Http::get($url);
 
     if ($response->successful()) {
-        return response()->json($response->json());
+        $json= response()->json($response->json());
+
     } else {
-        return response()->json(['error' => 'No se pudo obtener el historial de partidas'], 500);
+        $json =response()->json(['error' => 'No se pudo obtener el historial de partidas'], 500);
     }
+    return Inertia::render('players/matchs', [
+        'matchs' => $json,
+    ]);
 }
 public function getHeroes()
 {
@@ -85,10 +85,30 @@ public function getHeroesMatches($heroe_id)
     $response = Http::get($url);
 
     if ($response->successful()) {
-        return response()->json($response->json());
+        $json= response()->json($response->json());
+        $json=array_slice($json,0,50);
     } else {
-        return response()->json(['error' => 'No se pudo obtener el historial de partidas'], 500);
+        $json =response()->json(['error' => 'No se pudo obtener el historial de partidas'], 500);
     }
+    return Inertia::render('heroes/heroes', [
+        'players' => $json,
+    ]);
+}
+
+
+public function getProPlayers()
+{
+    $url = "https://api.opendota.com/api/proPlayers";
+    $response = Http::get($url);
+    
+    if ($response->successful()) {
+        $json =response()->json($response->json());
+    } else {
+        $json =response()->json(['error' => 'No se pudo obtener el historial de partidas'], 500);
+    }
+    return Inertia::render('players/proPlayer', [
+        'players' => $json,
+    ]);
 }
 
 }

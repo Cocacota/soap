@@ -1,14 +1,15 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
+import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
-import React from 'react';
-
-
 
 export default function Authenticated({ header, children }) {
-   
+    // Verifica si auth y user están definidos para evitar errores
+    const { auth } = usePage().props;
+    const user = auth?.user;  // Optional chaining para evitar errores si auth o user no existen
+
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
@@ -18,22 +19,22 @@ export default function Authenticated({ header, children }) {
                     <div className="flex h-16 justify-center bg-gray-800">
                         <div className="flex bg-gray-800">
                             <div className="flex shrink-0 items-center">
-                                <Link href={route('heroes.index')}>
+                                <Link href="/">
                                     <ApplicationLogo className="block h-4 w-auto fill-current text-gray-800 dark:text-gray-200" />
                                 </Link>
                             </div>
 
                             <div className="hidden mx-auto space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                               {/* <NavLink
-                                    href={route('heroes.index')}
-                                    active={route().current('heroes.index')}
+                                <NavLink
+                                    href={route('dashboard')}
+                                    active={route().current('dashboard')}
                                     className='text-red-500 text-5xl' >
                                     Nexo Dota
-                                </NavLink>-->*/}
+                                </NavLink>
                             </div>
                         </div>
 
-                        {/*user && ( // Mostrar el dropdown solo si user existe
+                        {user && ( // Mostrar el dropdown solo si user existe
                             <div className="hidden sm:ms-6 sm:flex sm:items-center">
                                 <div className="relative ms-3">
                                     <Dropdown>
@@ -76,7 +77,7 @@ export default function Authenticated({ header, children }) {
                                     </Dropdown>
                                 </div>
                             </div>
-                        )*/}
+                        )}
 
                         <div className="-me-2 flex items-center sm:hidden">
                             <button
@@ -113,15 +114,15 @@ export default function Authenticated({ header, children }) {
 
                 <div className={ (showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden' }>
                     <div className="space-y-1 pb-3 pt-2">
-                        {/*<ResponsiveNavLink
-                            href={route('heroes.index')}
-                            active={route().current('heroes.index')}
+                        <ResponsiveNavLink
+                            href={route('dashboard')}
+                            active={route().current('dashboard')}
                             className='text-red-500 indent-6'>
                             NexoDota
-                        </ResponsiveNavLink>*/}
+                        </ResponsiveNavLink>
                     </div>
 
-                    {/*user && ( // Mostrar la información solo si user existe
+                    {user && ( // Mostrar la información solo si user existe
                         <div className="border-t border-gray-200 bg-gray-800 pb-1 pt-4 dark:border-gray-600">
                             <div className="px-4">
                                 <div className="text-base font-medium text-gray-800 dark:text-gray-200">
@@ -145,7 +146,7 @@ export default function Authenticated({ header, children }) {
                                 </ResponsiveNavLink>
                             </div>
                         </div>
-                    )*/}
+                    )}
                 </div>
             </nav>
 
