@@ -1,15 +1,21 @@
 // resources/js/Pages/heroes.jsx
 import React, { useState } from 'react';
-import Layout from '../../layout/layout';
 import { Head } from '@inertiajs/react';
 import { Link } from '@inertiajs/react';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 
 export default function Heroes({ heroes }) {
   const [heroess, setHeroes] = useState(heroes);
 
   return (
-    <div>
+    <AuthenticatedLayout
+      header={
+        <h2 className="text-3xl bg-gray-800 font-semibold leading-tight text-red-800 dark:text-gray-200">
+          Posts
+        </h2>
+      }
+    >
       <Head title="Heroes" />
       <h1>Heroes List</h1>
       <ul>
@@ -23,6 +29,6 @@ export default function Heroes({ heroes }) {
           </li>
         ))}
       </ul>
-    </div>
+    </AuthenticatedLayout>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Head } from '@inertiajs/react';
-import { Link } from '@inertiajs/react';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import NavLink from '../../Components/NavLink';
 
 
@@ -8,7 +8,13 @@ export default function proPlayer({ player }) {
   const [jugador, setHeroes] = useState(player.original);
 console.log(jugador);
   return (
-    <div className="p-6 text-gray-800 dark:text-gray-100 aos-flip-up bg-gray-100 mb-4 rounded-lg shadow-md flex">
+    <AuthenticatedLayout
+      header={
+        <h2 className="text-3xl bg-gray-800 font-semibold leading-tight text-red-800 dark:text-gray-200">
+          Posts
+        </h2>
+      }
+    >
       <Head title="perfil de jugador" />  
             <img href={jugador.profile.avatarmedium} className='flex'></img>
             <h2 className="text-xl font-semibold">{jugador.profile.personaname}</h2>
@@ -16,6 +22,6 @@ console.log(jugador);
             <NavLink href={`/player/${jugador.profile.account_id}/matches`}>
             mas detelles
           </NavLink>
-    </div>
+    </AuthenticatedLayout>
   );
 }

@@ -74,7 +74,7 @@ public function getHeroes()
     }
 
     // Enviamos el arreglo de heroes a la vista de Inertia
-    return Inertia::render('heroes/index', [
+    return Inertia::render('heroes/heroes', [
         'heroes' => $heroes,
     ]);
 }

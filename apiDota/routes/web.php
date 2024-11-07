@@ -8,12 +8,25 @@ use Illuminate\Foundation\Application;
 
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DonationController;
+
+Route::get('/donate', [DonationController::class, 'showForm'])->name('donate.form');
+Route::post('/donate', [DonationController::class, 'createDonationPreference'])->name('donate');
+Route::get('/donation/success', [DonationController::class, 'success'])->name('mercadopago.success');
+Route::get('/donation/failure', [DonationController::class, 'failure'])->name('mercadopago.failure');
 
 
+Route::get('/', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/player/{player_id}', [OpenDotaController::class, 'getPlayerData'])->name('players.show');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/player/{player_id}', [OpenDotaController::class, 'getPlayerData'])->name('players.show');
 Route::get('/player/{player_id}/matches', [OpenDotaController::class, 'getPlayerMatches'])->name('players.matchs');
-Route::get('/player/proPlayer', [OpenDotaController::class, 'getProPlayers'])->name('players.proPlayer');
+Route::get('/proPlayer', [OpenDotaController::class, 'getProPlayers'])->name('players.proPlayer');
 Route::get('/heroes', [OpenDotaController::class, 'getHeroes'])->name('heroes.heroes');
 Route::get('/heroes/{id}', [OpenDotaController::class, 'showhero'])->name('heroes.show');
 
@@ -28,17 +41,6 @@ Route::get('/posts', [PostController::class, 'index']);
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
 
-
-
-
-Route::get('/', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';

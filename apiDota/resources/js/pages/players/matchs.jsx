@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Head } from '@inertiajs/react';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+
 
 function formatTime(seconds) {
     // Redondear hacia el minuto más cercano
@@ -17,7 +19,13 @@ export default function matchs({ matchs }) {
   const [matches, setHeroes] = useState(matchs.original);
 console.log(matches);
   return (
-    <div>
+    <AuthenticatedLayout
+      header={
+        <h2 className="text-3xl bg-gray-800 font-semibold leading-tight text-red-800 dark:text-gray-200">
+          Posts
+        </h2>
+      }
+    >
       <Head title="matchs" />
       <h1>informacion de las partidas del jugador</h1>
       <ul>
@@ -33,6 +41,6 @@ console.log(matches);
           </li>
         ))}
       </ul>
-    </div>
+    </AuthenticatedLayout>
   );
 }

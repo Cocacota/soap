@@ -24,13 +24,13 @@ const Carrucel=() =>{
       onSlideChange={() => console.log('slide change')}
     > 
     
-      <SwiperSlide> <img src= 'https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/lina.png' class="w-64 h-64"></img> </SwiperSlide>
-      <SwiperSlide> <img src= "https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/lion.png" class="w-64 h-64"></img>  </SwiperSlide>
-      <SwiperSlide> <img src= "https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/lone_druid.png" class="w-64 h-64"></img> </SwiperSlide>
-      <SwiperSlide> <img src= "https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/luna.png" class="w-64 h-64"></img>  </SwiperSlide>
-      <SwiperSlide> <img src= "https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/lycan.png" class="w-64 h-64"></img>  </SwiperSlide>
-      <SwiperSlide> <img src= "https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/magnataur.png" class="w-64 h-64"></img>  </SwiperSlide>
-      <SwiperSlide> <img src= "https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/marci.png" class="w-64 h-64"></img>  </SwiperSlide>
+      <SwiperSlide> <img src= 'https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/lina.png' className="w-64 h-64"></img> </SwiperSlide>
+      <SwiperSlide> <img src= "https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/lion.png" className="w-64 h-64"></img>  </SwiperSlide>
+      <SwiperSlide> <img src= "https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/lone_druid.png" className="w-64 h-64"></img> </SwiperSlide>
+      <SwiperSlide> <img src= "https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/luna.png" className="w-64 h-64"></img>  </SwiperSlide>
+      <SwiperSlide> <img src= "https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/lycan.png" className="w-64 h-64"></img>  </SwiperSlide>
+      <SwiperSlide> <img src= "https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/magnataur.png" className="w-64 h-64"></img>  </SwiperSlide>
+      <SwiperSlide> <img src= "https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/marci.png" className="w-64 h-64"></img>  </SwiperSlide>
     </Swiper>
   );
 };

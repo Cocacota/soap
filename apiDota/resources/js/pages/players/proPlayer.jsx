@@ -1,7 +1,7 @@
 // resources/js/Pages/heroes.jsx
 import React, { useState } from 'react';
 import { Head } from '@inertiajs/react';
-import { Link } from '@inertiajs/react';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import NavLink from '../../Components/NavLink';
 
 
@@ -9,7 +9,13 @@ export default function proPlayer({ players }) {
   const [playerss, setHeroes] = useState(players.original);
 console.log(playerss);
   return (
-    <div>
+    <AuthenticatedLayout
+      header={
+        <h2 className="text-3xl bg-gray-800 font-semibold leading-tight text-red-800 dark:text-gray-200">
+          Posts
+        </h2>
+      }
+    >
       <Head title="proPlayers" />
       <h1>lista de jugadores profecionales</h1>
       <ul>
@@ -25,6 +31,6 @@ console.log(playerss);
           </li>
         ))}
       </ul>
-    </div>
+    </AuthenticatedLayout>
   );
 }

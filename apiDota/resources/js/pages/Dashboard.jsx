@@ -1,8 +1,18 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import InputError from '@/Components/InputError';
+import InputLabel from '@/Components/InputLabel';
+import TextInput from '@/Components/TextInput';
+import PrimaryButton from '@/Components/PrimaryButton';
+import { Head, Link, useForm } from '@inertiajs/react';
 import Carrucel from '@/Components/Carusel';
 
 export default function Dashboard() {
+    const { data, setData, get, processing, errors, reset } = useForm({
+        id_user: '',
+        
+    });
+
+    
     return (
         <AuthenticatedLayout 
             header={
@@ -38,20 +48,32 @@ export default function Dashboard() {
                         </div>
                         <div className="bg-red-700 w-2/6 h-full block">
                         <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800 w-4/5 m-8">
-                        <div className=" p-6  text-xl text-gray-900 dark:text-gray-100 aos-flip-up">
-                            buscador
-                        </div>
+                        <Link href='/proPlayer' className=" p-6  text-xl  text-gray-900 dark:text-gray-100 aos-flip-up">jugadores profecionales</Link>
                     </div>
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800 w-4/5 m-8">
-                        <div className=" p-6  text-xl  text-gray-900 dark:text-gray-100 aos-flip-up">
-                            posts
-                        </div>
+                    <Link href='/heroes' className=" p-6  text-xl  text-gray-900 dark:text-gray-100 aos-flip-up">lista de los heroes</Link>
+
                     </div>
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800 w-4/5 m-8">
-                        <div className=" p-6 text-xl  text-gray-900 dark:text-gray-100 aos-flip-up">
-                           coach
+                    
+                    <InputLabel htmlFor="id_user" value="ingrese el id del usuario" />
+
+                    <TextInput
+                        id="id_user"
+                        name="id_user"
+                        value={data.id_user}
+                        className="mt-1 block w-full"
+                        isFocused={true}
+                        onChange={(e) => setData('id_user', e.target.value)}
+                        required
+                    />
+
+                        <InputError message={errors.name} className="mt-2" />
                         </div>
-                    </div>
+                        <Link href={`/matchs/${data.id_user}/history`}>
+                            Ver historial de partidas
+                        </Link>
+                    
                         </div>
                     </div>
                 </div>
