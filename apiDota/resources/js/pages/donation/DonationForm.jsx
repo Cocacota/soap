@@ -5,16 +5,20 @@ import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 import InputError from '@/Components/InputError';
+import axios from 'axios';
 
 export default function DonationForm() {
-    const { data, setData, post, processing, errors } = useForm({
-        amount: '',
-    });
+    const [amount, setAmount] = React.useState('');
+    const [error, setError] = React.useState(null);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Enviar la solicitud POST al controlador de Laravel
-        post(route('donate'));
+        try {
+            const response = await axios.post('/donate', { amount });
+            window.location.href = response.data.url; // Redirigir manualmente a la URL de Mercado Pago
+        } catch (error) {
+            setError('Hubo un problema al procesar la donación.');
+        }
     };
 
     return (
@@ -24,14 +28,14 @@ export default function DonationForm() {
                 <TextInput
                     id="amount"
                     type="number"
-                    value={data.amount}
+                    value={amount}
                     min="1"
                     step="0.01"
-                    onChange={(e) => setData('amount', e.target.value)}
+                    onChange={(e) => setAmount(e.target.value)}
                     className="block w-full mt-1"
                 />
-                <InputError message={errors.amount} className="mt-2" />
-                <PrimaryButton className="mt-4" disabled={processing}>
+                {error && <InputError message={error} className="mt-2" />}
+                <PrimaryButton className="mt-4" type="submit">
                     Donar con Mercado Pago
                 </PrimaryButton>
             </form>

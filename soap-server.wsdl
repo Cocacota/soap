@@ -31,71 +31,38 @@
         <part name="parameters" element="tns:getMatchHistoryResponse"/>
     </message>
 
-    <portType name="dota2ServicePortType">
-        <operation name="getMatchHistory">
-            <input message="tns:getMatchHistoryRequest"/>
-            <output message="tns:getMatchHistoryResponse"/>
-        </operation>
-    </portType>
+   <portType name="dota2ServicePortType">
+    <operation name="getMatchHistory">
+        <input message="tns:getMatchHistoryRequest"/>
+        <output message="tns:getMatchHistoryResponse"/>
+    </operation>
+    <operation name="getMatchsWithHero">
+        <input message="tns:getMatchsWithHeroRequest"/>
+        <output message="tns:getMatchsWithHeroResponse"/>
+    </operation>
+</portType>
 
-    <binding name="dota2ServiceBinding" type="tns:dota2ServicePortType">
-        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <operation name="getMatchHistory">
-            <soap:operation soapAction="http://localhost/soap#getMatchHistory"/>
-            <input>
-                <soap:body use="literal"/>
-            </input>
-            <output>
-                <soap:body use="literal"/>
-            </output>
-        </operation>
-    </binding>
-
-    <types>
-        <xsd:schema targetNamespace="http://localhost/soap/soap-server">
-            <xsd:element name="getMatchsWithHero">
-                <xsd:complexType>
-                    <xsd:sequence>
-                        <xsd:element name="heroes" type="xsd:string"/>
-                    </xsd:sequence>
-                </xsd:complexType>
-            </xsd:element>
-            <xsd:element name="getMatchsWithHeroResponse">
-                <xsd:complexType>
-                    <xsd:sequence>
-                        <xsd:element name="matches" type="xsd:string"/>
-                    </xsd:sequence>
-                </xsd:complexType>
-            </xsd:element>
-        </xsd:schema>
-    </types>
-
-    <message name="getMatchsWithHeroRequest">
-        <part name="parameters" element="tns:getMatchsWithHeroRequest"/>
-    </message>
-    <message name="getMatchsWithHeroResponse">
-        <part name="parameters" element="tns:getMatchsWithHeroResponse"/>
-    </message>
-
-    <portType name="dota2ServicePortType">
-        <operation name="getMatchsWithHero">
-            <input message="tns:getMatchsWithHeroRequest"/>
-            <output message="tns:getMatchsWithHeroResponse"/>
-        </operation>
-    </portType>
-
-    <binding name="dota2ServiceBinding" type="tns:dota2ServicePortType">
-        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <operation name="getMatchsWithHero">
-            <soap:operation soapAction="http://localhost/soap#getMatchsWithHero"/>
-            <input>
-                <soap:body use="literal"/>
-            </input>
-            <output>
-                <soap:body use="literal"/>
-            </output>
-        </operation>
-    </binding>
+<binding name="dota2ServiceBinding" type="tns:dota2ServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="getMatchHistory">
+        <soap:operation soapAction="http://localhost/soap#getMatchHistory"/>
+        <input>
+            <soap:body use="literal"/>
+        </input>
+        <output>
+            <soap:body use="literal"/>
+        </output>
+    </operation>
+    <operation name="getMatchsWithHero">
+        <soap:operation soapAction="http://localhost/soap#getMatchsWithHero"/>
+        <input>
+            <soap:body use="literal"/>
+        </input>
+        <output>
+            <soap:body use="literal"/>
+        </output>
+    </operation>
+</binding>
 
     <service name="dota2Service">
         <port name="dota2ServicePort" binding="tns:dota2ServiceBinding">

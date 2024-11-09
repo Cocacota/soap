@@ -1,37 +1,66 @@
-import React, { useState } from 'react';
-import { Inertia } from '@inertiajs/inertia';
+import { Head, Link, useForm } from '@inertiajs/react';
+import InputError from '@/Components/InputError';
+import InputLabel from '@/Components/InputLabel';
+import PrimaryButton from '@/Components/PrimaryButton';
+import TextInput from '@/Components/TextInput';
+
 
 const PostCreate = () => {
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
+const { data, setData, post, processing, errors, reset } = useForm({
+    titulo: '',
+    contenido: '',
+    
+});
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        Inertia.post('/posts', { titulo, contenido });
-    };
+const submit = (e) => {
+    e.preventDefault();
+
+    post(route('posts.store'), {
+        onFinish: () => reset('contenido',"titulo"),
+    });
+};
 
     return (
-        <div>
-            <h1>Crear Nuevo Post</h1>
-            <form onSubmit={handleSubmit}>
+        <form onSubmit={submit}>
                 <div>
-                    <label>Título</label>
-                    <input 
-                        type="text" 
-                        value={title} 
-                        onChange={(e) => setTitle(e.target.value)} 
+                    <InputLabel htmlFor="titulo" value="titulo" />
+
+                    <TextInput
+                        id="titulo"
+                        type="text"
+                        name="titulo"
+                        value={data.titulo}
+                        className="mt-1 block w-full"
+                        isFocused={true}
+                        onChange={(e) => setData('titulo', e.target.value)}
                     />
+
+                    <InputError message={errors.titulo} className="mt-2" />
                 </div>
-                <div>
-                    <label>Contenido</label>
-                    <textarea 
-                        value={content} 
-                        onChange={(e) => setContent(e.target.value)} 
-                    ></textarea>
+
+                <div className="mt-4">
+                    <InputLabel htmlFor="contenido" value="contenido" />
+
+                    <TextInput
+                        id="contenido"
+                        type="textarea"
+                        name="contenido"
+                        value={data.contenido}
+                        className="mt-1 block w-full"
+                        autoComplete="current-password"
+                        onChange={(e) => setData('contenido', e.target.value)}
+                    />
+
+                    <InputError message={errors.contenido} className="mt-2" />
                 </div>
-                <button type="submit">Crear Post</button>
+
+                
+
+                    <PrimaryButton className="ms-4" disabled={processing}>
+                        publicar
+                    </PrimaryButton>
+                
             </form>
-        </div>
     );
 };
 

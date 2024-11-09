@@ -62,43 +62,38 @@ class DonationController extends Controller
      * Crea una nueva preferencia de pago en Mercado Pago
      */
     public function createDonationPreference(Request $request)
-    {
-        // Autentica Mercado Pago
-        $this->authenticate();
+{
+    $this->authenticate();
 
-        // Validar monto ingresado
-        $request->validate(['amount' => 'required|numeric|min:1']);
+    $request->validate(['amount' => 'required|numeric|min:1']);
 
-        // Crear el ítem de la donación con el monto ingresado
-        $donationItem = [
-            'title' => 'Donación',
-            'quantity' => 1,
-            'currency_id' => 'USD',
-            'unit_price' => (float)$request->input('amount'),
-        ];
+    $donationItem = [
+        'title' => 'Donación',
+        'quantity' => 1,
+        'currency_id' => 'USD',
+        'unit_price' => (float)$request->input('amount'),
+    ];
 
-        // Configurar datos del donante
-        $payer = [
-            'name' => 'Donante',
-            'surname' => '',
-            'email' => 'donante@ejemplo.com', // Usa un correo de prueba o del usuario logueado
-        ];
+    $payer = [
+        'name' => 'Donante',
+        'surname' => '',
+        'email' => 'donante@ejemplo.com',
+    ];
 
-        // Crear el objeto de solicitud para la preferencia de pago
-        $preferenceRequest = $this->createPreferenceRequest([$donationItem], $payer);
+    $preferenceRequest = $this->createPreferenceRequest([$donationItem], $payer);
+    $client = new PreferenceClient();
 
-        // Crear el cliente de preferencias y enviar la solicitud
-        $client = new PreferenceClient();
-        try {
-            $preference = $client->create($preferenceRequest);
-    
-            // Redirigir a la URL de pago de Mercado Pago desde el backend
-            return redirect()->away($preference->init_point); // Cambiado a redirección desde el backend
-        } catch (MPApiException $error) {
-            // Manejar el error según tus necesidades
-            return back()->withErrors(['error' => 'Hubo un problema al procesar la donación.']);
-        }
+    try {
+        $preference = $client->create($preferenceRequest);
+
+        // En lugar de redirigir directamente, devuelve la URL al frontend
+        return response()->json(['url' => $preference->init_point]);
+    } catch (MPApiException $error) {
+        return response()->json(['error' => 'Hubo un problema al procesar la donación.'], 500);
     }
+}
+
+    
 
     /**
      * Página de éxito de la donación

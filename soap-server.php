@@ -1,7 +1,4 @@
 <?php
-
-
-
 class Dota2Service {
     private $pdo;
     
@@ -10,8 +7,8 @@ class Dota2Service {
         // Configuración de la conexión a la base de datos
         $host = 'localhost';
         $dbname = 'dota2';
-        $username = 'root'; // Cambia por el nombre de usuario de tu base de datos
-        $password = ''; // Cambia por la contraseña de tu base de datos
+        $username = 'root';
+        $password = ''; 
         
         // Crear la conexión PDO
         try {
@@ -81,22 +78,7 @@ class Dota2Service {
 
         return $response->asXML();
     }
-/*
-    //metodo para obtener el porsentaje de vitoria
-    public function getVictoriPorsentPlayer($playerID){
-        $stmt = $this->pdo->prepare("SELECT  result FROM match_history WHERE user_id = :playerID ");
-        $stmt->execute(['playerID' => $playerID]);
 
-        $matches = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $victoris=0;
-        foreach($matches as $mache){
-            if($mache["result"]=="won"){
-                $victoris++;
-            }
-        }
-        $porsentaje=($victoris/ count($matches))*100;
-        return $porsentaje;
-    }*/
     //metodo para obtener los jugadores de una partida
     public function getPlayersMatch($matchID){
         $stmt = $this->pdo->prepare("SELECT  player_id,hero FROM match_history WHERE match_id = :matchID ");
@@ -120,25 +102,7 @@ class Dota2Service {
 
         return $response->asXML();
     }
-    /*
-    //metodo para obtener el porsentaje de vitorias de un heroe
-    public function  getVictoriPorsentHero($heroe){
-        $stmt = $this->pdo->prepare("SELECT  result FROM match_history WHERE hero = :heroe ");
-        $stmt->execute(['heroe' => $heroe]);
-            //consulta a la base de datos
-        $matches = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            //se calcula el posentaje
-        $victoris=0;
-        foreach($matches as $mache){
-            if($mache["result"]=="won"){
-                $victoris++;
-            }
-        }
-        $porsentaje=($victoris/ count($matches))*100;
-        return $porsentaje;
-    }
-*/
+   
     //metodo para obtener el id del usarios mediante el username
     public function getUserId($name){
         //consulta a la base de datos
@@ -165,8 +129,7 @@ class Dota2Service {
 }
 
 // Configuración del servidor SOAP
-ini_set("soap.wsdl_cache_enabled", "0"); 
-$options = ['uri' => 'http://localhost/soap/soap-server.wsdl'];
+$options = ['uri' => 'http://localhost/soap/soap-server'];
 $server = new SoapServer(null, $options);
 $server->setClass('Dota2Service');
 $server->handle();
