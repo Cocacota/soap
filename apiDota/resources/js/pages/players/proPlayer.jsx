@@ -12,7 +12,7 @@ console.log(playerss);
     <AuthenticatedLayout
       header={
         <h2 className="text-3xl bg-gray-800 font-semibold leading-tight text-red-800 dark:text-gray-200">
-          Posts
+          jugadores profecionales
         </h2>
       }
     >

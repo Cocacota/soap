@@ -22,21 +22,21 @@ console.log(matches);
     <AuthenticatedLayout
       header={
         <h2 className="text-3xl bg-gray-800 font-semibold leading-tight text-red-800 dark:text-gray-200">
-          Posts
+          historial de partidas
         </h2>
       }
     >
       <Head title="matchs" />
-      <h1>informacion de las partidas del jugador</h1>
+      <h1 className='text-white'>informacion de las partidas del jugador</h1>
       <ul>
         {matches.map((match) => (
-          <li key={match.match_id} className="p-6 text-gray-800 dark:text-gray-100 aos-flip-up bg-gray-100 mb-4 rounded-lg shadow-md flex">
-            <p>duracion { formatTime( match.duration)}</p>
-            <p>modo de juego {match.game_mode}</p>
-            <p>heroe de la partida {match.hero_id}</p>
-            <p>asesinatos totales {match.kills}</p>
-            <p>muertes {match.deaths} </p>
-            <p>asistencias {match.assists} </p>
+          <li key={match.match_id} className="p-6 text-gray-800 dark:text-gray-100 aos-flip-up bg-gray-100 mb-4 rounded-lg shadow-md ">
+            <p> duracion { formatTime( match.duration)}</p>
+            <p> modo de juego {match.game_mode} </p>
+            <p> heroe de la partida {match.hero_id} </p>
+            <p> asesinatos totales {match.kills} </p>
+            <p> muertes {match.deaths} </p>
+            <p> asistencias {match.assists} </p>
             
           </li>
         ))}

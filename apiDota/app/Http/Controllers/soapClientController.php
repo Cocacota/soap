@@ -7,6 +7,8 @@ use Inertia\Inertia;
 
 class SoapClientController extends Controller
 {
+    protected $url= "localhost/soap/soap-server.php";
+
     public function showHistory($userId)
     {
         return Inertia::render('matchs/historyMatch', ['userId' => $userId]);
@@ -19,9 +21,6 @@ class SoapClientController extends Controller
 
     public function getMatchHistory($userId){
 
-    
-    $url = "http://localhost/soap/soap-server.php";
-
         // Crear el cuerpo de la solicitud SOAP en XML
         $xmlRequest = <<<XML
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
@@ -29,7 +28,7 @@ class SoapClientController extends Controller
    <soapenv:Header/>
    <soapenv:Body>
       <soap:getMatchHistory>
-         <soap:userId>{$userId}</soap:userId>
+         <soap:playerID>{$userId}</soap:playerID>
       </soap:getMatchHistory>
    </soapenv:Body>
 </soapenv:Envelope>
@@ -39,7 +38,7 @@ XML;
         $ch = curl_init();
 
         // Configurar opciones de cURL para la solicitud
-        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_URL, $this ->url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
@@ -68,7 +67,7 @@ XML;
     public function getMatchHero($hero){
 
     
-    $url = "http://localhost/soap/soap-server.php";
+    
 
         // Crear el cuerpo de la solicitud SOAP en XML
         $xmlRequest = <<<XML
@@ -87,7 +86,7 @@ XML;
         $ch = curl_init();
 
         // Configurar opciones de cURL para la solicitud
-        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_URL, $this-> url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [

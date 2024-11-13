@@ -10,7 +10,7 @@
             <xsd:element name="getMatchHistoryRequest">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="userId" type="xsd:int"/>
+                        <xsd:element name="playerID" type="xsd:int"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
@@ -29,6 +29,12 @@
     </message>
     <message name="getMatchHistoryResponse">
         <part name="parameters" element="tns:getMatchHistoryResponse"/>
+    </message>
+    <message name="getMatchsWithHeroRequest">
+        <part name="parameters" element="tns:getMatchsWithHeroRequest"/>
+    </message>
+    <message name="getMatchsWithHeroResponse">
+        <part name="parameters" element="tns:getMatchsWithHeroResponse"/>
     </message>
 
    <portType name="dota2ServicePortType">
@@ -66,7 +72,7 @@
 
     <service name="dota2Service">
         <port name="dota2ServicePort" binding="tns:dota2ServiceBinding">
-            <soap:address location="http://localhost/soap/soap-server.php"/>
+            <soap:address location="http://localhost/soap/soap-server"/>
         </port>
     </service>
 </definitions>

@@ -96,7 +96,7 @@ class Dota2Service {
         $response = new SimpleXMLElement('<players/>');
         foreach ($players as $player) {
             $playerElement = $response->addChild('player');
-            $playerElement->addChild('playerId', $player['Player_id']);
+            $playerElement->addChild('playerId', $player['player_id']);
             $playerElement->addChild('heroe', $player['hero']);
         }
 
@@ -129,7 +129,10 @@ class Dota2Service {
 }
 
 // Configuración del servidor SOAP
-$options = ['uri' => 'http://localhost/soap/soap-server'];
+$options = [
+    'uri'=>'http://localhost/soap/soap-server',
+    'encoding' => 'UTF-8'];
 $server = new SoapServer(null, $options);
 $server->setClass('Dota2Service');
-$server->handle();
+    $server->handle();
+   
