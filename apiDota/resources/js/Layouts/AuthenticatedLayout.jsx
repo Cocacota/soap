@@ -2,6 +2,8 @@ import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
+import InputLabel from '@/Components/InputLabel';
+import TextInput from '@/Components/TextInput';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
@@ -11,6 +13,19 @@ export default function Authenticated({ header, children }) {
     const user = auth?.user;  // Optional chaining para evitar errores si auth o user no existen
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+    const [input, setInput] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    const buscarHistorial = () => {
+        if (input.trim()) {
+            setLoading(true); // Inicia la carga
+            Inertia.get(`/matchs/${input}/history`, {}, {
+                onFinish: () => setLoading(false), // Finaliza la carga cuando termina
+            });
+        } else {
+            alert('Por favor, ingrese un ID válido.');
+        }
+    };
 
     return (
         <div className="min-h-screen bg-gray-800 dark:bg-gray-900">
@@ -150,13 +165,43 @@ export default function Authenticated({ header, children }) {
                 </div>
             </nav>
 
-            {header && (
+            
                 <header className="bg-gray-800 shadow dark:bg-gray-800">
-                    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                        {header}
+                    <div className="bg-red-700 w-full  flex p-4">
+                        <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800 w-4/5 m-auto p-4">
+                        <Link href='/proPlayer' className=" p-6  text-xl  text-gray-900 dark:text-gray-100 aos-flip-up">jugadores profecionales</Link>
                     </div>
+                    <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800 w-4/5 m-auto p-4">
+                    <Link href='/heroes' className=" p-6  text-xl  text-gray-900 dark:text-gray-100 aos-flip-up">lista de los heroes</Link>
+
+                    </div>
+                    <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800 w-4/5 m-auto p-2">
+                    
+                    <InputLabel htmlFor="id_user" value="ingrese el id del usuario" className="block m-auto text-sm font-medium text-gray-700 dark:text-gray-300" />
+
+                    <TextInput
+                        id="id_user"
+                        name="id_user"
+                        value={input}
+                        className="block w-full px-4 py-2 m-auto border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-300"
+                        isFocused={true}
+                        onChange={(e) => setInput( e.target.value)}
+                        required
+                    />
+                        </div>
+                        <button
+                onClick={buscarHistorial}
+                disabled={loading}
+                className={`px-4 py-2 m-auto rounded-md text-white ${
+                    loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'
+                }`}
+            >
+                {loading ? 'Buscando...' : 'Buscar Historial'}
+            </button>
+                    
+                        </div>
                 </header>
-            )}
+            
 
             <main>{children}</main>
         </div>

@@ -1,18 +1,15 @@
-import React, { useState } from 'react';
-import { Head } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import NavLink from '../../Components/NavLink';
-
-
+import InputLabel from '@/Components/InputLabel';
+import TextInput from '@/Components/TextInput';
+import React, { useState,  } from 'react';
+import { Head, Link} from '@inertiajs/react';
+import { Inertia } from '@inertiajs/inertia';
+ import NavLink from '@/Components/NavLink';
 export default function proPlayer({ player }) {
+    
   const [jugador, setHeroes] = useState(player.original);
   return (
     <AuthenticatedLayout
-      header={
-        <h2 className="text-3xl bg-gray-800 font-semibold leading-tight text-red-800 dark:text-gray-200">
-          detalles del jugador
-        </h2>
-      }
     >
       <Head title="perfil de jugador" />  
       {console.log(jugador.profile.avatarmedium)}

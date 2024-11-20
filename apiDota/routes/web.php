@@ -31,13 +31,17 @@ Route::get('/heroes', [OpenDotaController::class, 'getHeroes'])->name('heroes.he
 Route::get('/heroes/{id}', [OpenDotaController::class, 'showhero'])->name('heroes.show');
 
 
+Route::post('/posts/{id}/like', [PostController::class, 'likePost']);
+
+
+
 Route::get('/matchs/{id}/match-history', [SoapClientController::class, 'getMatchHistory']);
 Route::get('/matchs/{id}/history', [SoapClientController::class, 'showHistory'])->name('matchs.historyMatch');
 Route::get('/matchs/{hero}/match-hero', [SoapClientController::class, 'getMatchHero']);
 Route::get('/matchs/{hero}/hero', [SoapClientController::class, 'showHero'])->name('matchs.heroMatchs');
 
 
-Route::get('/posts', [PostController::class, 'index']);
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
 

@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import { Head } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-
+import InputLabel from '@/Components/InputLabel';
+import TextInput from '@/Components/TextInput';
+import React, { useState,  } from 'react';
+import { Head, Link} from '@inertiajs/react';
+import { Inertia } from '@inertiajs/inertia';
 
 function formatTime(seconds) {
     // Redondear hacia el minuto más cercano
@@ -16,15 +18,11 @@ function formatTime(seconds) {
 }
 
 export default function matchs({ matchs }) {
+  
   const [matches, setHeroes] = useState(matchs.original);
 console.log(matches);
   return (
     <AuthenticatedLayout
-      header={
-        <h2 className="text-3xl bg-gray-800 font-semibold leading-tight text-red-800 dark:text-gray-200">
-          historial de partidas
-        </h2>
-      }
     >
       <Head title="matchs" />
       <h1 className='text-white'>informacion de las partidas del jugador</h1>

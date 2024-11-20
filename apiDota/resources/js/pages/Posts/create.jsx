@@ -3,9 +3,14 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { Inertia } from '@inertiajs/inertia';
+
+
 
 
 const PostCreate = () => {
+   
 const { data, setData, post, processing, errors, reset } = useForm({
     titulo: '',
     contenido: '',
@@ -21,9 +26,11 @@ const submit = (e) => {
 };
 
     return (
-        <form onSubmit={submit}>
+        <AuthenticatedLayout>
+             
+        <form onSubmit={submit} className='mx-80'>
                 <div>
-                    <InputLabel htmlFor="titulo" value="titulo" />
+                    <InputLabel htmlFor="titulo" value="titulo" className='text-white'/>
 
                     <TextInput
                         id="titulo"
@@ -39,7 +46,7 @@ const submit = (e) => {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="contenido" value="contenido" />
+                    <InputLabel htmlFor="contenido" value="contenido" className='text-white'/>
 
                     <TextInput
                         id="contenido"
@@ -56,11 +63,12 @@ const submit = (e) => {
 
                 
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
+                    <PrimaryButton className="ms-4 text-white" disabled={processing}>
                         publicar
                     </PrimaryButton>
                 
             </form>
+            </AuthenticatedLayout>
     );
 };
 
